@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    	function HelloWorld(props)
+    	{
+    		return (<h1>Hello, {props.name}!</h1>);
+    	}
+
+    	class Age extends React.Component
+    	{
+
+          constructor(props) {
+            super(props);
+            this.state = 0;
+          }
+
+          componentDidMount() {
+            console.log('hi');
+          }
+
+          componentWillUnmount() {
+            console.log('Before');
+          }
+
+          myFunc()
+          {
+            this.setState({state : this.state + 1})
+          }
+    		render()
+            {
+              console.log('After');
+    			return (
+    				<div>
+						<h1>Age: {this.props.age}</h1>
+    					<button onClick={this.myFunc}>Count: {this.state}</button>
+    					<span>0</span>
+    				</div>
+    			);
+    		}
+    	}
+
+      ReactDOM.render(
+      <div>
+      		<HelloWorld name="Nawim" />
+      		<Age age="28" />
+      </div>
+      ,
+        document.getElementById('root')
+      );
+
+    </script>
+  </body>
+</html>
