@@ -1,65 +1,86 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello World</title>
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    
-    <!-- Don't use this in production: -->
-    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
-  </head>
-  <body>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- Don't use this in production: -->
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+<br><br>
+<div class="container">
+  <div class="col-md-6 col-md-offset-3">
     <div id="root"></div>
-    <script type="text/babel">
+  </div>
+</div>
+<script type="text/babel">
 
-    	function HelloWorld(props)
-    	{
-    		return (<h1>Hello, {props.name}!</h1>);
-    	}
+  class Articles extends React.Component
+  {
 
-    	class Age extends React.Component
-    	{
+    constructor(props) {
+      super(props);
+      this.state = {
+        isEdit : false
+      };
+    }
 
-          constructor(props) {
-            super(props);
-            this.state = 0;
-          }
+    edit(){
+      this.setState({
+        isEdit : true
+      });
+    }
 
-          componentDidMount() {
-            console.log('hi');
-          }
+    save(){
 
-          componentWillUnmount() {
-            console.log('Before');
-          }
+    }
 
-          myFunc()
-          {
-            this.setState({state : this.state + 1})
-          }
-    		render()
-            {
-              console.log('After');
-    			return (
-    				<div>
-						<h1>Age: {this.props.age}</h1>
-    					<button onClick={this.myFunc}>Count: {this.state}</button>
-    					<span>0</span>
-    				</div>
-    			);
-    		}
-    	}
+    editRender(){
+      if(this.state.isEdit){
+        return (
+                <div>
+                  <h1>New Title</h1>
+                  <p>New Text</p>
+                  <button onClick={()=>this.save()}>Save</button>
+                </div>
+        );
+      } else {
+        return (
+                <div>
+                  <h1>Old Title</h1>
+                  <p>Old Text</p>
+                  <button onClick={()=>this.edit()}>Edit</button>
+                </div>
+        );
+      }
+    }
 
-      ReactDOM.render(
-      <div>
-      		<HelloWorld name="Nawim" />
-      		<Age age="28" />
-      </div>
-      ,
-        document.getElementById('root')
+    render()
+    {
+      let props = this.props;
+      return (
+              <React.Fragment>
+                {this.editRender()}
+              </React.Fragment>
       );
+    }
+  }
 
-    </script>
-  </body>
+  ReactDOM.render(
+          <React.Fragment>
+            <Articles title={"Kazakhstan's leader Nursultan Nazarbayev resigns"}>Nursultan Nazarbayev announces shock resignation in televised address, hands over power to speaker of upper house.</Articles>
+          </React.Fragment>
+          ,
+          document.getElementById('root')
+  );
+
+</script>
+</body>
 </html>
